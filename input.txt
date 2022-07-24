@@ -1,0 +1,8 @@
+float a
+int b
+float c
+int d = 12
+a = 3.1415929
+b = 4 + d
+c = a + b
+print c

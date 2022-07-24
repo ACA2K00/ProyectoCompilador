@@ -1,0 +1,11 @@
+float a
+int b
+float c
+int d
+d=12
+a=3.1415929
+r0=4 + d
+b=r0
+r1=a + b
+c=r1
+print c
