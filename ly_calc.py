@@ -7,7 +7,8 @@ import tac
 import argparse
 
 reserved = {
-    'int':'INT', 'float':'FLOAT', 'print':'PRINT'
+    'int':'INT', 'float':'FLOAT', 'print':'PRINT', 'boolean':'BOOLEAN',
+    'true':'TRUE', 'false':'FALSE'
 }
 
 tokens = tuple(reserved.values()) + (
@@ -75,7 +76,8 @@ def p_empty(p):
 
 def p_type_specifier(p):
     '''type : INT
-            | FLOAT'''
+            | FLOAT
+            | BOOLEAN'''
     p[0] = p[1]
 
 
@@ -123,13 +125,21 @@ def p_direct_declarator(p):
 
 def p_expression_number(p):
     '''expression : INUM
-                  | FNUM'''
+                  | FNUM
+                  | BOOLVAL'''
     p[0] = p[1]
 
 def p_expression_name(p):
     "expression : NAME"
     p[0] = p[1]
 
+def p_boolean(p):
+    '''BOOLVAL : TRUE
+               | FALSE'''
+    if p[1] == "true":
+        p[0] = True
+    elif p[1] == "false":
+        p[0] = False
 
 def p_error(p):
     if p:
