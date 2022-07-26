@@ -1,7 +1,7 @@
 ('declare', 'float', 'a')
 ('declare', 'int', 'b')
 ('declare', 'float', 'c')
-('declare_assign', 'int', 'd', 12)
+('declare_assign', 'int', 'd', 15)
 ('declare_assign', 'boolean', 'e', False)
 ('assign', 'a', 3.1415929)
 ('assign', 'b', ('operation', 54, '+', 'd'))

@@ -1,7 +1,7 @@
 float a;
 int b;
 float c;
-int d = 12;
+int d = 15;
 boolean e = false;
 a = 3.1415929;
 b = 54 + d;

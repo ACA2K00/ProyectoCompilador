@@ -8,7 +8,7 @@ import argparse
 
 reserved = {
     'int':'INT', 'float':'FLOAT', 'print':'PRINT', 'boolean':'BOOLEAN',
-    'true':'TRUE', 'false':'FALSE'
+    'true':'TRUE', 'false':'FALSE', 'if':'IF'
 }
 
 tokens = tuple(reserved.values()) + (
@@ -16,7 +16,7 @@ tokens = tuple(reserved.values()) + (
     'EQUAL', 'NEQUAL', 'GREATER', 'LESS', 'GEQUAL', 'LEQUAL'
 )
 
-literals = ['=', '+', '-', '*', '/', '^', '(', ')', ';']
+literals = ['=', '+', '-', '*', '/', '^', '(', ')', '{', '}', ';']
 
 t_ignore = ' \t'
 
@@ -72,16 +72,22 @@ def p_init(p):
 def p_statement(p):
     '''statement : declarations ";" statement
                  | print ";" statement
+                 | if_statement statement
                  | empty'''
     if len(p) > 2:  # not empty
+        if p[2] == ";":
+            p[2] = p[3]
         p[0] = (p[1], ) + p[3]
     else:
         p[0] = ()
 
-
 def p_empty(p):
     'empty :'
     pass
+
+def p_if_statement(p):
+    '''if_statement : IF "(" expression ")" "{" statement "}" '''
+    p[0] = ('if', p[3], p[6])
 
 def p_type_specifier(p):
     '''type : INT
