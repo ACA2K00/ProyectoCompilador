@@ -5,9 +5,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'left+-left*/left^rightUMINUSINT FLOAT PRINT BOOLEAN TRUE FALSE NAME INUM FNUMinit : statementstatement : declarations ";" statement\n                 | print ";" statement\n                 | emptyempty :type : INT\n            | FLOAT\n            | BOOLEANdeclarations  : declaration_type_name\n                     | declaration_assign_expression\n                     | declaration_fulldeclaration_type_name : type NAMEdeclaration_assign_expression : NAME "=" expressiondeclaration_full : type NAME "=" expressionprint : PRINT expressionexpression : expression "+" expression\n                  | expression "-" expression\n                  | expression "*" expression\n                  | expression "/" expression\n                  | expression "^" expressionexpression : "-" expression %prec UMINUSexpression : "(" expression ")"expression : INUM\n                  | FNUM\n                  | BOOLVALexpression : NAMEBOOLVAL : TRUE\n               | FALSE'
+_lr_signature = 'nonassocLEQUALGEQUALEQUALNEQUALGREATERLESSleft+-left*/left^rightUMINUSINT FLOAT PRINT BOOLEAN TRUE FALSE NAME INUM FNUM EQUAL NEQUAL GREATER LESS GEQUAL LEQUALinit : statementstatement : declarations ";" statement\n                 | print ";" statement\n                 | emptyempty :type : INT\n            | FLOAT\n            | BOOLEANdeclarations  : declaration_type_name\n                     | declaration_assign_expression\n                     | declaration_fulldeclaration_type_name : type NAMEdeclaration_assign_expression : NAME "=" expressiondeclaration_full : type NAME "=" expressionprint : PRINT expressionexpression : expression "+" expression\n                  | expression "-" expression\n                  | expression "*" expression\n                  | expression "/" expression\n                  | expression "^" expression\n                  | expression EQUAL expression\n                  | expression NEQUAL expression\n                  | expression GEQUAL expression\n                  | expression LEQUAL expression\n                  | expression GREATER expression\n                  | expression LESS expressionexpression : "-" expression %prec UMINUSexpression : "(" expression ")"expression : INUM\n                  | FNUM\n                  | BOOLVALexpression : NAMEBOOLVAL : TRUE\n               | FALSE'
     
-_lr_action_items = {'PRINT':([0,15,16,],[9,9,9,]),'$end':([0,1,2,5,15,16,28,29,],[-5,0,-1,-4,-5,-5,-2,-3,]),'NAME':([0,9,10,12,13,14,15,16,18,19,27,30,31,32,33,34,37,],[11,23,26,-6,-7,-8,11,11,23,23,23,23,23,23,23,23,23,]),'INT':([0,15,16,],[12,12,12,]),'FLOAT':([0,15,16,],[13,13,13,]),'BOOLEAN':([0,15,16,],[14,14,14,]),';':([3,4,6,7,8,17,20,21,22,23,24,25,26,35,38,39,40,41,42,43,44,45,],[15,16,-9,-10,-11,-15,-23,-24,-25,-26,-27,-28,-12,-21,-13,-16,-17,-18,-19,-20,-22,-14,]),'-':([9,17,18,19,20,21,22,23,24,25,27,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,],[18,31,18,18,-23,-24,-25,-26,-27,-28,18,18,18,18,18,18,-21,31,18,31,-16,-17,-18,-19,-20,-22,31,]),'(':([9,18,19,27,30,31,32,33,34,37,],[19,19,19,19,19,19,19,19,19,19,]),'INUM':([9,18,19,27,30,31,32,33,34,37,],[20,20,20,20,20,20,20,20,20,20,]),'FNUM':([9,18,19,27,30,31,32,33,34,37,],[21,21,21,21,21,21,21,21,21,21,]),'TRUE':([9,18,19,27,30,31,32,33,34,37,],[24,24,24,24,24,24,24,24,24,24,]),'FALSE':([9,18,19,27,30,31,32,33,34,37,],[25,25,25,25,25,25,25,25,25,25,]),'=':([11,26,],[27,37,]),'+':([17,20,21,22,23,24,25,35,36,38,39,40,41,42,43,44,45,],[30,-23,-24,-25,-26,-27,-28,-21,30,30,-16,-17,-18,-19,-20,-22,30,]),'*':([17,20,21,22,23,24,25,35,36,38,39,40,41,42,43,44,45,],[32,-23,-24,-25,-26,-27,-28,-21,32,32,32,32,-18,-19,-20,-22,32,]),'/':([17,20,21,22,23,24,25,35,36,38,39,40,41,42,43,44,45,],[33,-23,-24,-25,-26,-27,-28,-21,33,33,33,33,-18,-19,-20,-22,33,]),'^':([17,20,21,22,23,24,25,35,36,38,39,40,41,42,43,44,45,],[34,-23,-24,-25,-26,-27,-28,-21,34,34,34,34,34,34,-20,-22,34,]),')':([20,21,22,23,24,25,35,36,39,40,41,42,43,44,],[-23,-24,-25,-26,-27,-28,-21,44,-16,-17,-18,-19,-20,-22,]),}
+_lr_action_items = {'PRINT':([0,15,16,],[9,9,9,]),'$end':([0,1,2,5,15,16,28,29,],[-5,0,-1,-4,-5,-5,-2,-3,]),'NAME':([0,9,10,12,13,14,15,16,18,19,27,30,31,32,33,34,35,36,37,38,39,40,43,],[11,23,26,-6,-7,-8,11,11,23,23,23,23,23,23,23,23,23,23,23,23,23,23,23,]),'INT':([0,15,16,],[12,12,12,]),'FLOAT':([0,15,16,],[13,13,13,]),'BOOLEAN':([0,15,16,],[14,14,14,]),';':([3,4,6,7,8,17,20,21,22,23,24,25,26,41,44,45,46,47,48,49,50,51,52,53,54,55,56,57,],[15,16,-9,-10,-11,-15,-29,-30,-31,-32,-33,-34,-12,-27,-13,-16,-17,-18,-19,-20,-21,-22,-23,-24,-25,-26,-28,-14,]),'-':([9,17,18,19,20,21,22,23,24,25,27,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,],[18,31,18,18,-29,-30,-31,-32,-33,-34,18,18,18,18,18,18,18,18,18,18,18,18,-27,31,18,31,-16,-17,-18,-19,-20,31,31,31,31,31,31,-28,31,]),'(':([9,18,19,27,30,31,32,33,34,35,36,37,38,39,40,43,],[19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,]),'INUM':([9,18,19,27,30,31,32,33,34,35,36,37,38,39,40,43,],[20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,]),'FNUM':([9,18,19,27,30,31,32,33,34,35,36,37,38,39,40,43,],[21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,]),'TRUE':([9,18,19,27,30,31,32,33,34,35,36,37,38,39,40,43,],[24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,]),'FALSE':([9,18,19,27,30,31,32,33,34,35,36,37,38,39,40,43,],[25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,]),'=':([11,26,],[27,43,]),'+':([17,20,21,22,23,24,25,41,42,44,45,46,47,48,49,50,51,52,53,54,55,56,57,],[30,-29,-30,-31,-32,-33,-34,-27,30,30,-16,-17,-18,-19,-20,30,30,30,30,30,30,-28,30,]),'*':([17,20,21,22,23,24,25,41,42,44,45,46,47,48,49,50,51,52,53,54,55,56,57,],[32,-29,-30,-31,-32,-33,-34,-27,32,32,32,32,-18,-19,-20,32,32,32,32,32,32,-28,32,]),'/':([17,20,21,22,23,24,25,41,42,44,45,46,47,48,49,50,51,52,53,54,55,56,57,],[33,-29,-30,-31,-32,-33,-34,-27,33,33,33,33,-18,-19,-20,33,33,33,33,33,33,-28,33,]),'^':([17,20,21,22,23,24,25,41,42,44,45,46,47,48,49,50,51,52,53,54,55,56,57,],[34,-29,-30,-31,-32,-33,-34,-27,34,34,34,34,34,34,-20,34,34,34,34,34,34,-28,34,]),'EQUAL':([17,20,21,22,23,24,25,41,42,44,45,46,47,48,49,50,51,52,53,54,55,56,57,],[35,-29,-30,-31,-32,-33,-34,-27,35,35,-16,-17,-18,-19,-20,None,None,None,None,None,None,-28,35,]),'NEQUAL':([17,20,21,22,23,24,25,41,42,44,45,46,47,48,49,50,51,52,53,54,55,56,57,],[36,-29,-30,-31,-32,-33,-34,-27,36,36,-16,-17,-18,-19,-20,None,None,None,None,None,None,-28,36,]),'GEQUAL':([17,20,21,22,23,24,25,41,42,44,45,46,47,48,49,50,51,52,53,54,55,56,57,],[37,-29,-30,-31,-32,-33,-34,-27,37,37,-16,-17,-18,-19,-20,None,None,None,None,None,None,-28,37,]),'LEQUAL':([17,20,21,22,23,24,25,41,42,44,45,46,47,48,49,50,51,52,53,54,55,56,57,],[38,-29,-30,-31,-32,-33,-34,-27,38,38,-16,-17,-18,-19,-20,None,None,None,None,None,None,-28,38,]),'GREATER':([17,20,21,22,23,24,25,41,42,44,45,46,47,48,49,50,51,52,53,54,55,56,57,],[39,-29,-30,-31,-32,-33,-34,-27,39,39,-16,-17,-18,-19,-20,None,None,None,None,None,None,-28,39,]),'LESS':([17,20,21,22,23,24,25,41,42,44,45,46,47,48,49,50,51,52,53,54,55,56,57,],[40,-29,-30,-31,-32,-33,-34,-27,40,40,-16,-17,-18,-19,-20,None,None,None,None,None,None,-28,40,]),')':([20,21,22,23,24,25,41,42,45,46,47,48,49,50,51,52,53,54,55,56,],[-29,-30,-31,-32,-33,-34,-27,56,-16,-17,-18,-19,-20,-21,-22,-23,-24,-25,-26,-28,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'init':([0,],[1,]),'statement':([0,15,16,],[2,28,29,]),'declarations':([0,15,16,],[3,3,3,]),'print':([0,15,16,],[4,4,4,]),'empty':([0,15,16,],[5,5,5,]),'declaration_type_name':([0,15,16,],[6,6,6,]),'declaration_assign_expression':([0,15,16,],[7,7,7,]),'declaration_full':([0,15,16,],[8,8,8,]),'type':([0,15,16,],[10,10,10,]),'expression':([9,18,19,27,30,31,32,33,34,37,],[17,35,36,38,39,40,41,42,43,45,]),'BOOLVAL':([9,18,19,27,30,31,32,33,34,37,],[22,22,22,22,22,22,22,22,22,22,]),}
+_lr_goto_items = {'init':([0,],[1,]),'statement':([0,15,16,],[2,28,29,]),'declarations':([0,15,16,],[3,3,3,]),'print':([0,15,16,],[4,4,4,]),'empty':([0,15,16,],[5,5,5,]),'declaration_type_name':([0,15,16,],[6,6,6,]),'declaration_assign_expression':([0,15,16,],[7,7,7,]),'declaration_full':([0,15,16,],[8,8,8,]),'type':([0,15,16,],[10,10,10,]),'expression':([9,18,19,27,30,31,32,33,34,35,36,37,38,39,40,43,],[17,41,42,44,45,46,47,48,49,50,51,52,53,54,55,57,]),'BOOLVAL':([9,18,19,27,30,31,32,33,34,35,36,37,38,39,40,43,],[22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,32 +26,38 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> init","S'",1,None,None,None),
-  ('init -> statement','init',1,'p_init','ly_calc.py',58),
-  ('statement -> declarations ; statement','statement',3,'p_statement','ly_calc.py',64),
-  ('statement -> print ; statement','statement',3,'p_statement','ly_calc.py',65),
-  ('statement -> empty','statement',1,'p_statement','ly_calc.py',66),
-  ('empty -> <empty>','empty',0,'p_empty','ly_calc.py',74),
-  ('type -> INT','type',1,'p_type_specifier','ly_calc.py',78),
-  ('type -> FLOAT','type',1,'p_type_specifier','ly_calc.py',79),
-  ('type -> BOOLEAN','type',1,'p_type_specifier','ly_calc.py',80),
-  ('declarations -> declaration_type_name','declarations',1,'p_declarations','ly_calc.py',85),
-  ('declarations -> declaration_assign_expression','declarations',1,'p_declarations','ly_calc.py',86),
-  ('declarations -> declaration_full','declarations',1,'p_declarations','ly_calc.py',87),
-  ('declaration_type_name -> type NAME','declaration_type_name',2,'p_declaration_type_name','ly_calc.py',91),
-  ('declaration_assign_expression -> NAME = expression','declaration_assign_expression',3,'p_declaration_assign_expression','ly_calc.py',96),
-  ('declaration_full -> type NAME = expression','declaration_full',4,'p_declaration_full','ly_calc.py',100),
-  ('print -> PRINT expression','print',2,'p_print','ly_calc.py',104),
-  ('expression -> expression + expression','expression',3,'p_expression_binop','ly_calc.py',109),
-  ('expression -> expression - expression','expression',3,'p_expression_binop','ly_calc.py',110),
-  ('expression -> expression * expression','expression',3,'p_expression_binop','ly_calc.py',111),
-  ('expression -> expression / expression','expression',3,'p_expression_binop','ly_calc.py',112),
-  ('expression -> expression ^ expression','expression',3,'p_expression_binop','ly_calc.py',113),
-  ('expression -> - expression','expression',2,'p_expression_uminus','ly_calc.py',117),
-  ('expression -> ( expression )','expression',3,'p_direct_declarator','ly_calc.py',122),
-  ('expression -> INUM','expression',1,'p_expression_number','ly_calc.py',127),
-  ('expression -> FNUM','expression',1,'p_expression_number','ly_calc.py',128),
-  ('expression -> BOOLVAL','expression',1,'p_expression_number','ly_calc.py',129),
-  ('expression -> NAME','expression',1,'p_expression_name','ly_calc.py',133),
-  ('BOOLVAL -> TRUE','BOOLVAL',1,'p_boolean','ly_calc.py',137),
-  ('BOOLVAL -> FALSE','BOOLVAL',1,'p_boolean','ly_calc.py',138),
+  ('init -> statement','init',1,'p_init','ly_calc.py',67),
+  ('statement -> declarations ; statement','statement',3,'p_statement','ly_calc.py',73),
+  ('statement -> print ; statement','statement',3,'p_statement','ly_calc.py',74),
+  ('statement -> empty','statement',1,'p_statement','ly_calc.py',75),
+  ('empty -> <empty>','empty',0,'p_empty','ly_calc.py',83),
+  ('type -> INT','type',1,'p_type_specifier','ly_calc.py',87),
+  ('type -> FLOAT','type',1,'p_type_specifier','ly_calc.py',88),
+  ('type -> BOOLEAN','type',1,'p_type_specifier','ly_calc.py',89),
+  ('declarations -> declaration_type_name','declarations',1,'p_declarations','ly_calc.py',94),
+  ('declarations -> declaration_assign_expression','declarations',1,'p_declarations','ly_calc.py',95),
+  ('declarations -> declaration_full','declarations',1,'p_declarations','ly_calc.py',96),
+  ('declaration_type_name -> type NAME','declaration_type_name',2,'p_declaration_type_name','ly_calc.py',100),
+  ('declaration_assign_expression -> NAME = expression','declaration_assign_expression',3,'p_declaration_assign_expression','ly_calc.py',105),
+  ('declaration_full -> type NAME = expression','declaration_full',4,'p_declaration_full','ly_calc.py',109),
+  ('print -> PRINT expression','print',2,'p_print','ly_calc.py',113),
+  ('expression -> expression + expression','expression',3,'p_expression_binop','ly_calc.py',118),
+  ('expression -> expression - expression','expression',3,'p_expression_binop','ly_calc.py',119),
+  ('expression -> expression * expression','expression',3,'p_expression_binop','ly_calc.py',120),
+  ('expression -> expression / expression','expression',3,'p_expression_binop','ly_calc.py',121),
+  ('expression -> expression ^ expression','expression',3,'p_expression_binop','ly_calc.py',122),
+  ('expression -> expression EQUAL expression','expression',3,'p_expression_binop','ly_calc.py',123),
+  ('expression -> expression NEQUAL expression','expression',3,'p_expression_binop','ly_calc.py',124),
+  ('expression -> expression GEQUAL expression','expression',3,'p_expression_binop','ly_calc.py',125),
+  ('expression -> expression LEQUAL expression','expression',3,'p_expression_binop','ly_calc.py',126),
+  ('expression -> expression GREATER expression','expression',3,'p_expression_binop','ly_calc.py',127),
+  ('expression -> expression LESS expression','expression',3,'p_expression_binop','ly_calc.py',128),
+  ('expression -> - expression','expression',2,'p_expression_uminus','ly_calc.py',132),
+  ('expression -> ( expression )','expression',3,'p_direct_declarator','ly_calc.py',137),
+  ('expression -> INUM','expression',1,'p_expression_number','ly_calc.py',142),
+  ('expression -> FNUM','expression',1,'p_expression_number','ly_calc.py',143),
+  ('expression -> BOOLVAL','expression',1,'p_expression_number','ly_calc.py',144),
+  ('expression -> NAME','expression',1,'p_expression_name','ly_calc.py',148),
+  ('BOOLVAL -> TRUE','BOOLVAL',1,'p_boolean','ly_calc.py',152),
+  ('BOOLVAL -> FALSE','BOOLVAL',1,'p_boolean','ly_calc.py',153),
 ]

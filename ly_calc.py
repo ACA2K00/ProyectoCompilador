@@ -12,16 +12,20 @@ reserved = {
 }
 
 tokens = tuple(reserved.values()) + (
-    'NAME', 'INUM', 'FNUM', 
+    'NAME', 'INUM', 'FNUM',
+    'EQUAL', 'NEQUAL', 'GREATER', 'LESS', 'GEQUAL', 'LEQUAL'
 )
 
 literals = ['=', '+', '-', '*', '/', '^', '(', ')', ';']
 
 t_ignore = ' \t'
 
-def t_newline(t):
-    r'\n+'
-    t.lexer.lineno += t.value.count("\n")
+t_EQUAL = r'=='
+t_NEQUAL = r'!='
+t_GREATER = r'>'
+t_LESS = r'<'
+t_GEQUAL = r'>='
+t_LEQUAL = r'<='
 
 def t_NAME(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
@@ -38,6 +42,10 @@ def t_INUM(t):
     t.value = int(t.value)
     return t
 
+def t_newline(t):
+    r'\n+'
+    t.lexer.lineno += t.value.count("\n")
+
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
@@ -45,6 +53,7 @@ def t_error(t):
 lex.lex()
 
 precedence = (
+    ('nonassoc', 'LEQUAL', 'GEQUAL', 'EQUAL', 'NEQUAL', 'GREATER', 'LESS'),
     ('left', '+', '-'),
     ('left', '*', '/'),
     ('left', '^'),
@@ -110,7 +119,13 @@ def p_expression_binop(p):
                   | expression "-" expression
                   | expression "*" expression
                   | expression "/" expression
-                  | expression "^" expression'''
+                  | expression "^" expression
+                  | expression EQUAL expression
+                  | expression NEQUAL expression
+                  | expression GEQUAL expression
+                  | expression LEQUAL expression
+                  | expression GREATER expression
+                  | expression LESS expression'''
     p[0] = ('operation', p[1], p[2], p[3])
 
 def p_expression_uminus(p):

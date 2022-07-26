@@ -3,10 +3,13 @@ int b
 float c
 int d
 d=12
+boolean e
 e=False
 a=3.1415929
 r0=54 + d
 b=r0
 r1=a ^ b
 c=r1
+r2=a != b
+e=r2
 print c
