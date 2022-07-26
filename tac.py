@@ -12,7 +12,6 @@ def nextR():
     tmp += 1
     return "r" + str(tmp)
     
-
 def threeAddressCode(abstractSyntaxTree):
     if type(abstractSyntaxTree) is not tuple:
         return abstractSyntaxTree

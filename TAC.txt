@@ -12,4 +12,6 @@ r1=a ^ b
 c=r1
 r2=a != b
 e=r2
+r3=a || b
+e=r3
 print c

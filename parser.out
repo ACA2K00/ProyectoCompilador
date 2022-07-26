@@ -31,41 +31,45 @@ Rule 25    expression -> expression GEQUAL expression
 Rule 26    expression -> expression LEQUAL expression
 Rule 27    expression -> expression GREATER expression
 Rule 28    expression -> expression LESS expression
-Rule 29    expression -> - expression
-Rule 30    expression -> ( expression )
-Rule 31    expression -> INUM
-Rule 32    expression -> FNUM
-Rule 33    expression -> BOOLVAL
-Rule 34    expression -> NAME
-Rule 35    BOOLVAL -> TRUE
-Rule 36    BOOLVAL -> FALSE
+Rule 29    expression -> expression OR expression
+Rule 30    expression -> expression AND expression
+Rule 31    expression -> - expression
+Rule 32    expression -> ( expression )
+Rule 33    expression -> INUM
+Rule 34    expression -> FNUM
+Rule 35    expression -> BOOLVAL
+Rule 36    expression -> NAME
+Rule 37    BOOLVAL -> TRUE
+Rule 38    BOOLVAL -> FALSE
 
 Terminals, with rules where they appear
 
-(                    : 7 30
-)                    : 7 30
+(                    : 7 32
+)                    : 7 32
 *                    : 20
 +                    : 18
--                    : 19 29
+-                    : 19 31
 /                    : 21
 ;                    : 2 3
 =                    : 15 16
+AND                  : 30
 BOOLEAN              : 10
 EQUAL                : 23
-FALSE                : 36
+FALSE                : 38
 FLOAT                : 9
-FNUM                 : 32
+FNUM                 : 34
 GEQUAL               : 25
 GREATER              : 27
 IF                   : 7
 INT                  : 8
-INUM                 : 31
+INUM                 : 33
 LEQUAL               : 26
 LESS                 : 28
-NAME                 : 14 15 16 34
+NAME                 : 14 15 16 36
 NEQUAL               : 24
+OR                   : 29
 PRINT                : 17
-TRUE                 : 35
+TRUE                 : 37
 ^                    : 22
 error                : 
 {                    : 7
@@ -73,13 +77,13 @@ error                :
 
 Nonterminals, with rules where they appear
 
-BOOLVAL              : 33
+BOOLVAL              : 35
 declaration_assign_expression : 12
 declaration_full     : 13
 declaration_type_name : 11
 declarations         : 2
 empty                : 5
-expression           : 7 15 16 17 18 18 19 19 20 20 21 21 22 22 23 23 24 24 25 25 26 26 27 27 28 28 29 30
+expression           : 7 15 16 17 18 18 19 19 20 20 21 21 22 22 23 23 24 24 25 25 26 26 27 27 28 28 29 29 30 30 31 32
 if_statement         : 4
 init                 : 0
 print                : 3
@@ -237,14 +241,16 @@ state 10
     (26) expression -> . expression LEQUAL expression
     (27) expression -> . expression GREATER expression
     (28) expression -> . expression LESS expression
-    (29) expression -> . - expression
-    (30) expression -> . ( expression )
-    (31) expression -> . INUM
-    (32) expression -> . FNUM
-    (33) expression -> . BOOLVAL
-    (34) expression -> . NAME
-    (35) BOOLVAL -> . TRUE
-    (36) BOOLVAL -> . FALSE
+    (29) expression -> . expression OR expression
+    (30) expression -> . expression AND expression
+    (31) expression -> . - expression
+    (32) expression -> . ( expression )
+    (33) expression -> . INUM
+    (34) expression -> . FNUM
+    (35) expression -> . BOOLVAL
+    (36) expression -> . NAME
+    (37) BOOLVAL -> . TRUE
+    (38) BOOLVAL -> . FALSE
 
     -               shift and go to state 21
     (               shift and go to state 22
@@ -400,6 +406,8 @@ state 20
     (26) expression -> expression . LEQUAL expression
     (27) expression -> expression . GREATER expression
     (28) expression -> expression . LESS expression
+    (29) expression -> expression . OR expression
+    (30) expression -> expression . AND expression
 
     ;               reduce using rule 17 (print -> PRINT expression .)
     +               shift and go to state 34
@@ -413,11 +421,13 @@ state 20
     LEQUAL          shift and go to state 42
     GREATER         shift and go to state 43
     LESS            shift and go to state 44
+    OR              shift and go to state 45
+    AND             shift and go to state 46
 
 
 state 21
 
-    (29) expression -> - . expression
+    (31) expression -> - . expression
     (18) expression -> . expression + expression
     (19) expression -> . expression - expression
     (20) expression -> . expression * expression
@@ -429,14 +439,16 @@ state 21
     (26) expression -> . expression LEQUAL expression
     (27) expression -> . expression GREATER expression
     (28) expression -> . expression LESS expression
-    (29) expression -> . - expression
-    (30) expression -> . ( expression )
-    (31) expression -> . INUM
-    (32) expression -> . FNUM
-    (33) expression -> . BOOLVAL
-    (34) expression -> . NAME
-    (35) BOOLVAL -> . TRUE
-    (36) BOOLVAL -> . FALSE
+    (29) expression -> . expression OR expression
+    (30) expression -> . expression AND expression
+    (31) expression -> . - expression
+    (32) expression -> . ( expression )
+    (33) expression -> . INUM
+    (34) expression -> . FNUM
+    (35) expression -> . BOOLVAL
+    (36) expression -> . NAME
+    (37) BOOLVAL -> . TRUE
+    (38) BOOLVAL -> . FALSE
 
     -               shift and go to state 21
     (               shift and go to state 22
@@ -446,12 +458,12 @@ state 21
     TRUE            shift and go to state 27
     FALSE           shift and go to state 28
 
-    expression                     shift and go to state 45
+    expression                     shift and go to state 47
     BOOLVAL                        shift and go to state 25
 
 state 22
 
-    (30) expression -> ( . expression )
+    (32) expression -> ( . expression )
     (18) expression -> . expression + expression
     (19) expression -> . expression - expression
     (20) expression -> . expression * expression
@@ -463,14 +475,16 @@ state 22
     (26) expression -> . expression LEQUAL expression
     (27) expression -> . expression GREATER expression
     (28) expression -> . expression LESS expression
-    (29) expression -> . - expression
-    (30) expression -> . ( expression )
-    (31) expression -> . INUM
-    (32) expression -> . FNUM
-    (33) expression -> . BOOLVAL
-    (34) expression -> . NAME
-    (35) BOOLVAL -> . TRUE
-    (36) BOOLVAL -> . FALSE
+    (29) expression -> . expression OR expression
+    (30) expression -> . expression AND expression
+    (31) expression -> . - expression
+    (32) expression -> . ( expression )
+    (33) expression -> . INUM
+    (34) expression -> . FNUM
+    (35) expression -> . BOOLVAL
+    (36) expression -> . NAME
+    (37) BOOLVAL -> . TRUE
+    (38) BOOLVAL -> . FALSE
 
     -               shift and go to state 21
     (               shift and go to state 22
@@ -480,121 +494,133 @@ state 22
     TRUE            shift and go to state 27
     FALSE           shift and go to state 28
 
-    expression                     shift and go to state 46
+    expression                     shift and go to state 48
     BOOLVAL                        shift and go to state 25
 
 state 23
 
-    (31) expression -> INUM .
+    (33) expression -> INUM .
 
-    +               reduce using rule 31 (expression -> INUM .)
-    -               reduce using rule 31 (expression -> INUM .)
-    *               reduce using rule 31 (expression -> INUM .)
-    /               reduce using rule 31 (expression -> INUM .)
-    ^               reduce using rule 31 (expression -> INUM .)
-    EQUAL           reduce using rule 31 (expression -> INUM .)
-    NEQUAL          reduce using rule 31 (expression -> INUM .)
-    GEQUAL          reduce using rule 31 (expression -> INUM .)
-    LEQUAL          reduce using rule 31 (expression -> INUM .)
-    GREATER         reduce using rule 31 (expression -> INUM .)
-    LESS            reduce using rule 31 (expression -> INUM .)
-    ;               reduce using rule 31 (expression -> INUM .)
-    )               reduce using rule 31 (expression -> INUM .)
+    +               reduce using rule 33 (expression -> INUM .)
+    -               reduce using rule 33 (expression -> INUM .)
+    *               reduce using rule 33 (expression -> INUM .)
+    /               reduce using rule 33 (expression -> INUM .)
+    ^               reduce using rule 33 (expression -> INUM .)
+    EQUAL           reduce using rule 33 (expression -> INUM .)
+    NEQUAL          reduce using rule 33 (expression -> INUM .)
+    GEQUAL          reduce using rule 33 (expression -> INUM .)
+    LEQUAL          reduce using rule 33 (expression -> INUM .)
+    GREATER         reduce using rule 33 (expression -> INUM .)
+    LESS            reduce using rule 33 (expression -> INUM .)
+    OR              reduce using rule 33 (expression -> INUM .)
+    AND             reduce using rule 33 (expression -> INUM .)
+    ;               reduce using rule 33 (expression -> INUM .)
+    )               reduce using rule 33 (expression -> INUM .)
 
 
 state 24
 
-    (32) expression -> FNUM .
+    (34) expression -> FNUM .
 
-    +               reduce using rule 32 (expression -> FNUM .)
-    -               reduce using rule 32 (expression -> FNUM .)
-    *               reduce using rule 32 (expression -> FNUM .)
-    /               reduce using rule 32 (expression -> FNUM .)
-    ^               reduce using rule 32 (expression -> FNUM .)
-    EQUAL           reduce using rule 32 (expression -> FNUM .)
-    NEQUAL          reduce using rule 32 (expression -> FNUM .)
-    GEQUAL          reduce using rule 32 (expression -> FNUM .)
-    LEQUAL          reduce using rule 32 (expression -> FNUM .)
-    GREATER         reduce using rule 32 (expression -> FNUM .)
-    LESS            reduce using rule 32 (expression -> FNUM .)
-    ;               reduce using rule 32 (expression -> FNUM .)
-    )               reduce using rule 32 (expression -> FNUM .)
+    +               reduce using rule 34 (expression -> FNUM .)
+    -               reduce using rule 34 (expression -> FNUM .)
+    *               reduce using rule 34 (expression -> FNUM .)
+    /               reduce using rule 34 (expression -> FNUM .)
+    ^               reduce using rule 34 (expression -> FNUM .)
+    EQUAL           reduce using rule 34 (expression -> FNUM .)
+    NEQUAL          reduce using rule 34 (expression -> FNUM .)
+    GEQUAL          reduce using rule 34 (expression -> FNUM .)
+    LEQUAL          reduce using rule 34 (expression -> FNUM .)
+    GREATER         reduce using rule 34 (expression -> FNUM .)
+    LESS            reduce using rule 34 (expression -> FNUM .)
+    OR              reduce using rule 34 (expression -> FNUM .)
+    AND             reduce using rule 34 (expression -> FNUM .)
+    ;               reduce using rule 34 (expression -> FNUM .)
+    )               reduce using rule 34 (expression -> FNUM .)
 
 
 state 25
 
-    (33) expression -> BOOLVAL .
+    (35) expression -> BOOLVAL .
 
-    +               reduce using rule 33 (expression -> BOOLVAL .)
-    -               reduce using rule 33 (expression -> BOOLVAL .)
-    *               reduce using rule 33 (expression -> BOOLVAL .)
-    /               reduce using rule 33 (expression -> BOOLVAL .)
-    ^               reduce using rule 33 (expression -> BOOLVAL .)
-    EQUAL           reduce using rule 33 (expression -> BOOLVAL .)
-    NEQUAL          reduce using rule 33 (expression -> BOOLVAL .)
-    GEQUAL          reduce using rule 33 (expression -> BOOLVAL .)
-    LEQUAL          reduce using rule 33 (expression -> BOOLVAL .)
-    GREATER         reduce using rule 33 (expression -> BOOLVAL .)
-    LESS            reduce using rule 33 (expression -> BOOLVAL .)
-    ;               reduce using rule 33 (expression -> BOOLVAL .)
-    )               reduce using rule 33 (expression -> BOOLVAL .)
+    +               reduce using rule 35 (expression -> BOOLVAL .)
+    -               reduce using rule 35 (expression -> BOOLVAL .)
+    *               reduce using rule 35 (expression -> BOOLVAL .)
+    /               reduce using rule 35 (expression -> BOOLVAL .)
+    ^               reduce using rule 35 (expression -> BOOLVAL .)
+    EQUAL           reduce using rule 35 (expression -> BOOLVAL .)
+    NEQUAL          reduce using rule 35 (expression -> BOOLVAL .)
+    GEQUAL          reduce using rule 35 (expression -> BOOLVAL .)
+    LEQUAL          reduce using rule 35 (expression -> BOOLVAL .)
+    GREATER         reduce using rule 35 (expression -> BOOLVAL .)
+    LESS            reduce using rule 35 (expression -> BOOLVAL .)
+    OR              reduce using rule 35 (expression -> BOOLVAL .)
+    AND             reduce using rule 35 (expression -> BOOLVAL .)
+    ;               reduce using rule 35 (expression -> BOOLVAL .)
+    )               reduce using rule 35 (expression -> BOOLVAL .)
 
 
 state 26
 
-    (34) expression -> NAME .
+    (36) expression -> NAME .
 
-    +               reduce using rule 34 (expression -> NAME .)
-    -               reduce using rule 34 (expression -> NAME .)
-    *               reduce using rule 34 (expression -> NAME .)
-    /               reduce using rule 34 (expression -> NAME .)
-    ^               reduce using rule 34 (expression -> NAME .)
-    EQUAL           reduce using rule 34 (expression -> NAME .)
-    NEQUAL          reduce using rule 34 (expression -> NAME .)
-    GEQUAL          reduce using rule 34 (expression -> NAME .)
-    LEQUAL          reduce using rule 34 (expression -> NAME .)
-    GREATER         reduce using rule 34 (expression -> NAME .)
-    LESS            reduce using rule 34 (expression -> NAME .)
-    ;               reduce using rule 34 (expression -> NAME .)
-    )               reduce using rule 34 (expression -> NAME .)
+    +               reduce using rule 36 (expression -> NAME .)
+    -               reduce using rule 36 (expression -> NAME .)
+    *               reduce using rule 36 (expression -> NAME .)
+    /               reduce using rule 36 (expression -> NAME .)
+    ^               reduce using rule 36 (expression -> NAME .)
+    EQUAL           reduce using rule 36 (expression -> NAME .)
+    NEQUAL          reduce using rule 36 (expression -> NAME .)
+    GEQUAL          reduce using rule 36 (expression -> NAME .)
+    LEQUAL          reduce using rule 36 (expression -> NAME .)
+    GREATER         reduce using rule 36 (expression -> NAME .)
+    LESS            reduce using rule 36 (expression -> NAME .)
+    OR              reduce using rule 36 (expression -> NAME .)
+    AND             reduce using rule 36 (expression -> NAME .)
+    ;               reduce using rule 36 (expression -> NAME .)
+    )               reduce using rule 36 (expression -> NAME .)
 
 
 state 27
 
-    (35) BOOLVAL -> TRUE .
+    (37) BOOLVAL -> TRUE .
 
-    +               reduce using rule 35 (BOOLVAL -> TRUE .)
-    -               reduce using rule 35 (BOOLVAL -> TRUE .)
-    *               reduce using rule 35 (BOOLVAL -> TRUE .)
-    /               reduce using rule 35 (BOOLVAL -> TRUE .)
-    ^               reduce using rule 35 (BOOLVAL -> TRUE .)
-    EQUAL           reduce using rule 35 (BOOLVAL -> TRUE .)
-    NEQUAL          reduce using rule 35 (BOOLVAL -> TRUE .)
-    GEQUAL          reduce using rule 35 (BOOLVAL -> TRUE .)
-    LEQUAL          reduce using rule 35 (BOOLVAL -> TRUE .)
-    GREATER         reduce using rule 35 (BOOLVAL -> TRUE .)
-    LESS            reduce using rule 35 (BOOLVAL -> TRUE .)
-    ;               reduce using rule 35 (BOOLVAL -> TRUE .)
-    )               reduce using rule 35 (BOOLVAL -> TRUE .)
+    +               reduce using rule 37 (BOOLVAL -> TRUE .)
+    -               reduce using rule 37 (BOOLVAL -> TRUE .)
+    *               reduce using rule 37 (BOOLVAL -> TRUE .)
+    /               reduce using rule 37 (BOOLVAL -> TRUE .)
+    ^               reduce using rule 37 (BOOLVAL -> TRUE .)
+    EQUAL           reduce using rule 37 (BOOLVAL -> TRUE .)
+    NEQUAL          reduce using rule 37 (BOOLVAL -> TRUE .)
+    GEQUAL          reduce using rule 37 (BOOLVAL -> TRUE .)
+    LEQUAL          reduce using rule 37 (BOOLVAL -> TRUE .)
+    GREATER         reduce using rule 37 (BOOLVAL -> TRUE .)
+    LESS            reduce using rule 37 (BOOLVAL -> TRUE .)
+    OR              reduce using rule 37 (BOOLVAL -> TRUE .)
+    AND             reduce using rule 37 (BOOLVAL -> TRUE .)
+    ;               reduce using rule 37 (BOOLVAL -> TRUE .)
+    )               reduce using rule 37 (BOOLVAL -> TRUE .)
 
 
 state 28
 
-    (36) BOOLVAL -> FALSE .
+    (38) BOOLVAL -> FALSE .
 
-    +               reduce using rule 36 (BOOLVAL -> FALSE .)
-    -               reduce using rule 36 (BOOLVAL -> FALSE .)
-    *               reduce using rule 36 (BOOLVAL -> FALSE .)
-    /               reduce using rule 36 (BOOLVAL -> FALSE .)
-    ^               reduce using rule 36 (BOOLVAL -> FALSE .)
-    EQUAL           reduce using rule 36 (BOOLVAL -> FALSE .)
-    NEQUAL          reduce using rule 36 (BOOLVAL -> FALSE .)
-    GEQUAL          reduce using rule 36 (BOOLVAL -> FALSE .)
-    LEQUAL          reduce using rule 36 (BOOLVAL -> FALSE .)
-    GREATER         reduce using rule 36 (BOOLVAL -> FALSE .)
-    LESS            reduce using rule 36 (BOOLVAL -> FALSE .)
-    ;               reduce using rule 36 (BOOLVAL -> FALSE .)
-    )               reduce using rule 36 (BOOLVAL -> FALSE .)
+    +               reduce using rule 38 (BOOLVAL -> FALSE .)
+    -               reduce using rule 38 (BOOLVAL -> FALSE .)
+    *               reduce using rule 38 (BOOLVAL -> FALSE .)
+    /               reduce using rule 38 (BOOLVAL -> FALSE .)
+    ^               reduce using rule 38 (BOOLVAL -> FALSE .)
+    EQUAL           reduce using rule 38 (BOOLVAL -> FALSE .)
+    NEQUAL          reduce using rule 38 (BOOLVAL -> FALSE .)
+    GEQUAL          reduce using rule 38 (BOOLVAL -> FALSE .)
+    LEQUAL          reduce using rule 38 (BOOLVAL -> FALSE .)
+    GREATER         reduce using rule 38 (BOOLVAL -> FALSE .)
+    LESS            reduce using rule 38 (BOOLVAL -> FALSE .)
+    OR              reduce using rule 38 (BOOLVAL -> FALSE .)
+    AND             reduce using rule 38 (BOOLVAL -> FALSE .)
+    ;               reduce using rule 38 (BOOLVAL -> FALSE .)
+    )               reduce using rule 38 (BOOLVAL -> FALSE .)
 
 
 state 29
@@ -611,14 +637,16 @@ state 29
     (26) expression -> . expression LEQUAL expression
     (27) expression -> . expression GREATER expression
     (28) expression -> . expression LESS expression
-    (29) expression -> . - expression
-    (30) expression -> . ( expression )
-    (31) expression -> . INUM
-    (32) expression -> . FNUM
-    (33) expression -> . BOOLVAL
-    (34) expression -> . NAME
-    (35) BOOLVAL -> . TRUE
-    (36) BOOLVAL -> . FALSE
+    (29) expression -> . expression OR expression
+    (30) expression -> . expression AND expression
+    (31) expression -> . - expression
+    (32) expression -> . ( expression )
+    (33) expression -> . INUM
+    (34) expression -> . FNUM
+    (35) expression -> . BOOLVAL
+    (36) expression -> . NAME
+    (37) BOOLVAL -> . TRUE
+    (38) BOOLVAL -> . FALSE
 
     -               shift and go to state 21
     (               shift and go to state 22
@@ -628,7 +656,7 @@ state 29
     TRUE            shift and go to state 27
     FALSE           shift and go to state 28
 
-    expression                     shift and go to state 47
+    expression                     shift and go to state 49
     BOOLVAL                        shift and go to state 25
 
 state 30
@@ -637,7 +665,7 @@ state 30
     (16) declaration_full -> type NAME . = expression
 
     ;               reduce using rule 14 (declaration_type_name -> type NAME .)
-    =               shift and go to state 48
+    =               shift and go to state 50
 
 
 state 31
@@ -654,14 +682,16 @@ state 31
     (26) expression -> . expression LEQUAL expression
     (27) expression -> . expression GREATER expression
     (28) expression -> . expression LESS expression
-    (29) expression -> . - expression
-    (30) expression -> . ( expression )
-    (31) expression -> . INUM
-    (32) expression -> . FNUM
-    (33) expression -> . BOOLVAL
-    (34) expression -> . NAME
-    (35) BOOLVAL -> . TRUE
-    (36) BOOLVAL -> . FALSE
+    (29) expression -> . expression OR expression
+    (30) expression -> . expression AND expression
+    (31) expression -> . - expression
+    (32) expression -> . ( expression )
+    (33) expression -> . INUM
+    (34) expression -> . FNUM
+    (35) expression -> . BOOLVAL
+    (36) expression -> . NAME
+    (37) BOOLVAL -> . TRUE
+    (38) BOOLVAL -> . FALSE
 
     -               shift and go to state 21
     (               shift and go to state 22
@@ -671,7 +701,7 @@ state 31
     TRUE            shift and go to state 27
     FALSE           shift and go to state 28
 
-    expression                     shift and go to state 49
+    expression                     shift and go to state 51
     BOOLVAL                        shift and go to state 25
 
 state 32
@@ -704,14 +734,16 @@ state 34
     (26) expression -> . expression LEQUAL expression
     (27) expression -> . expression GREATER expression
     (28) expression -> . expression LESS expression
-    (29) expression -> . - expression
-    (30) expression -> . ( expression )
-    (31) expression -> . INUM
-    (32) expression -> . FNUM
-    (33) expression -> . BOOLVAL
-    (34) expression -> . NAME
-    (35) BOOLVAL -> . TRUE
-    (36) BOOLVAL -> . FALSE
+    (29) expression -> . expression OR expression
+    (30) expression -> . expression AND expression
+    (31) expression -> . - expression
+    (32) expression -> . ( expression )
+    (33) expression -> . INUM
+    (34) expression -> . FNUM
+    (35) expression -> . BOOLVAL
+    (36) expression -> . NAME
+    (37) BOOLVAL -> . TRUE
+    (38) BOOLVAL -> . FALSE
 
     -               shift and go to state 21
     (               shift and go to state 22
@@ -721,7 +753,7 @@ state 34
     TRUE            shift and go to state 27
     FALSE           shift and go to state 28
 
-    expression                     shift and go to state 50
+    expression                     shift and go to state 52
     BOOLVAL                        shift and go to state 25
 
 state 35
@@ -738,14 +770,16 @@ state 35
     (26) expression -> . expression LEQUAL expression
     (27) expression -> . expression GREATER expression
     (28) expression -> . expression LESS expression
-    (29) expression -> . - expression
-    (30) expression -> . ( expression )
-    (31) expression -> . INUM
-    (32) expression -> . FNUM
-    (33) expression -> . BOOLVAL
-    (34) expression -> . NAME
-    (35) BOOLVAL -> . TRUE
-    (36) BOOLVAL -> . FALSE
+    (29) expression -> . expression OR expression
+    (30) expression -> . expression AND expression
+    (31) expression -> . - expression
+    (32) expression -> . ( expression )
+    (33) expression -> . INUM
+    (34) expression -> . FNUM
+    (35) expression -> . BOOLVAL
+    (36) expression -> . NAME
+    (37) BOOLVAL -> . TRUE
+    (38) BOOLVAL -> . FALSE
 
     -               shift and go to state 21
     (               shift and go to state 22
@@ -755,7 +789,7 @@ state 35
     TRUE            shift and go to state 27
     FALSE           shift and go to state 28
 
-    expression                     shift and go to state 51
+    expression                     shift and go to state 53
     BOOLVAL                        shift and go to state 25
 
 state 36
@@ -772,14 +806,16 @@ state 36
     (26) expression -> . expression LEQUAL expression
     (27) expression -> . expression GREATER expression
     (28) expression -> . expression LESS expression
-    (29) expression -> . - expression
-    (30) expression -> . ( expression )
-    (31) expression -> . INUM
-    (32) expression -> . FNUM
-    (33) expression -> . BOOLVAL
-    (34) expression -> . NAME
-    (35) BOOLVAL -> . TRUE
-    (36) BOOLVAL -> . FALSE
+    (29) expression -> . expression OR expression
+    (30) expression -> . expression AND expression
+    (31) expression -> . - expression
+    (32) expression -> . ( expression )
+    (33) expression -> . INUM
+    (34) expression -> . FNUM
+    (35) expression -> . BOOLVAL
+    (36) expression -> . NAME
+    (37) BOOLVAL -> . TRUE
+    (38) BOOLVAL -> . FALSE
 
     -               shift and go to state 21
     (               shift and go to state 22
@@ -789,7 +825,7 @@ state 36
     TRUE            shift and go to state 27
     FALSE           shift and go to state 28
 
-    expression                     shift and go to state 52
+    expression                     shift and go to state 54
     BOOLVAL                        shift and go to state 25
 
 state 37
@@ -806,14 +842,16 @@ state 37
     (26) expression -> . expression LEQUAL expression
     (27) expression -> . expression GREATER expression
     (28) expression -> . expression LESS expression
-    (29) expression -> . - expression
-    (30) expression -> . ( expression )
-    (31) expression -> . INUM
-    (32) expression -> . FNUM
-    (33) expression -> . BOOLVAL
-    (34) expression -> . NAME
-    (35) BOOLVAL -> . TRUE
-    (36) BOOLVAL -> . FALSE
+    (29) expression -> . expression OR expression
+    (30) expression -> . expression AND expression
+    (31) expression -> . - expression
+    (32) expression -> . ( expression )
+    (33) expression -> . INUM
+    (34) expression -> . FNUM
+    (35) expression -> . BOOLVAL
+    (36) expression -> . NAME
+    (37) BOOLVAL -> . TRUE
+    (38) BOOLVAL -> . FALSE
 
     -               shift and go to state 21
     (               shift and go to state 22
@@ -823,7 +861,7 @@ state 37
     TRUE            shift and go to state 27
     FALSE           shift and go to state 28
 
-    expression                     shift and go to state 53
+    expression                     shift and go to state 55
     BOOLVAL                        shift and go to state 25
 
 state 38
@@ -840,14 +878,16 @@ state 38
     (26) expression -> . expression LEQUAL expression
     (27) expression -> . expression GREATER expression
     (28) expression -> . expression LESS expression
-    (29) expression -> . - expression
-    (30) expression -> . ( expression )
-    (31) expression -> . INUM
-    (32) expression -> . FNUM
-    (33) expression -> . BOOLVAL
-    (34) expression -> . NAME
-    (35) BOOLVAL -> . TRUE
-    (36) BOOLVAL -> . FALSE
+    (29) expression -> . expression OR expression
+    (30) expression -> . expression AND expression
+    (31) expression -> . - expression
+    (32) expression -> . ( expression )
+    (33) expression -> . INUM
+    (34) expression -> . FNUM
+    (35) expression -> . BOOLVAL
+    (36) expression -> . NAME
+    (37) BOOLVAL -> . TRUE
+    (38) BOOLVAL -> . FALSE
 
     -               shift and go to state 21
     (               shift and go to state 22
@@ -857,7 +897,7 @@ state 38
     TRUE            shift and go to state 27
     FALSE           shift and go to state 28
 
-    expression                     shift and go to state 54
+    expression                     shift and go to state 56
     BOOLVAL                        shift and go to state 25
 
 state 39
@@ -874,14 +914,16 @@ state 39
     (26) expression -> . expression LEQUAL expression
     (27) expression -> . expression GREATER expression
     (28) expression -> . expression LESS expression
-    (29) expression -> . - expression
-    (30) expression -> . ( expression )
-    (31) expression -> . INUM
-    (32) expression -> . FNUM
-    (33) expression -> . BOOLVAL
-    (34) expression -> . NAME
-    (35) BOOLVAL -> . TRUE
-    (36) BOOLVAL -> . FALSE
+    (29) expression -> . expression OR expression
+    (30) expression -> . expression AND expression
+    (31) expression -> . - expression
+    (32) expression -> . ( expression )
+    (33) expression -> . INUM
+    (34) expression -> . FNUM
+    (35) expression -> . BOOLVAL
+    (36) expression -> . NAME
+    (37) BOOLVAL -> . TRUE
+    (38) BOOLVAL -> . FALSE
 
     -               shift and go to state 21
     (               shift and go to state 22
@@ -891,7 +933,7 @@ state 39
     TRUE            shift and go to state 27
     FALSE           shift and go to state 28
 
-    expression                     shift and go to state 55
+    expression                     shift and go to state 57
     BOOLVAL                        shift and go to state 25
 
 state 40
@@ -908,14 +950,16 @@ state 40
     (26) expression -> . expression LEQUAL expression
     (27) expression -> . expression GREATER expression
     (28) expression -> . expression LESS expression
-    (29) expression -> . - expression
-    (30) expression -> . ( expression )
-    (31) expression -> . INUM
-    (32) expression -> . FNUM
-    (33) expression -> . BOOLVAL
-    (34) expression -> . NAME
-    (35) BOOLVAL -> . TRUE
-    (36) BOOLVAL -> . FALSE
+    (29) expression -> . expression OR expression
+    (30) expression -> . expression AND expression
+    (31) expression -> . - expression
+    (32) expression -> . ( expression )
+    (33) expression -> . INUM
+    (34) expression -> . FNUM
+    (35) expression -> . BOOLVAL
+    (36) expression -> . NAME
+    (37) BOOLVAL -> . TRUE
+    (38) BOOLVAL -> . FALSE
 
     -               shift and go to state 21
     (               shift and go to state 22
@@ -925,7 +969,7 @@ state 40
     TRUE            shift and go to state 27
     FALSE           shift and go to state 28
 
-    expression                     shift and go to state 56
+    expression                     shift and go to state 58
     BOOLVAL                        shift and go to state 25
 
 state 41
@@ -942,14 +986,16 @@ state 41
     (26) expression -> . expression LEQUAL expression
     (27) expression -> . expression GREATER expression
     (28) expression -> . expression LESS expression
-    (29) expression -> . - expression
-    (30) expression -> . ( expression )
-    (31) expression -> . INUM
-    (32) expression -> . FNUM
-    (33) expression -> . BOOLVAL
-    (34) expression -> . NAME
-    (35) BOOLVAL -> . TRUE
-    (36) BOOLVAL -> . FALSE
+    (29) expression -> . expression OR expression
+    (30) expression -> . expression AND expression
+    (31) expression -> . - expression
+    (32) expression -> . ( expression )
+    (33) expression -> . INUM
+    (34) expression -> . FNUM
+    (35) expression -> . BOOLVAL
+    (36) expression -> . NAME
+    (37) BOOLVAL -> . TRUE
+    (38) BOOLVAL -> . FALSE
 
     -               shift and go to state 21
     (               shift and go to state 22
@@ -959,7 +1005,7 @@ state 41
     TRUE            shift and go to state 27
     FALSE           shift and go to state 28
 
-    expression                     shift and go to state 57
+    expression                     shift and go to state 59
     BOOLVAL                        shift and go to state 25
 
 state 42
@@ -976,14 +1022,16 @@ state 42
     (26) expression -> . expression LEQUAL expression
     (27) expression -> . expression GREATER expression
     (28) expression -> . expression LESS expression
-    (29) expression -> . - expression
-    (30) expression -> . ( expression )
-    (31) expression -> . INUM
-    (32) expression -> . FNUM
-    (33) expression -> . BOOLVAL
-    (34) expression -> . NAME
-    (35) BOOLVAL -> . TRUE
-    (36) BOOLVAL -> . FALSE
+    (29) expression -> . expression OR expression
+    (30) expression -> . expression AND expression
+    (31) expression -> . - expression
+    (32) expression -> . ( expression )
+    (33) expression -> . INUM
+    (34) expression -> . FNUM
+    (35) expression -> . BOOLVAL
+    (36) expression -> . NAME
+    (37) BOOLVAL -> . TRUE
+    (38) BOOLVAL -> . FALSE
 
     -               shift and go to state 21
     (               shift and go to state 22
@@ -993,7 +1041,7 @@ state 42
     TRUE            shift and go to state 27
     FALSE           shift and go to state 28
 
-    expression                     shift and go to state 58
+    expression                     shift and go to state 60
     BOOLVAL                        shift and go to state 25
 
 state 43
@@ -1010,14 +1058,16 @@ state 43
     (26) expression -> . expression LEQUAL expression
     (27) expression -> . expression GREATER expression
     (28) expression -> . expression LESS expression
-    (29) expression -> . - expression
-    (30) expression -> . ( expression )
-    (31) expression -> . INUM
-    (32) expression -> . FNUM
-    (33) expression -> . BOOLVAL
-    (34) expression -> . NAME
-    (35) BOOLVAL -> . TRUE
-    (36) BOOLVAL -> . FALSE
+    (29) expression -> . expression OR expression
+    (30) expression -> . expression AND expression
+    (31) expression -> . - expression
+    (32) expression -> . ( expression )
+    (33) expression -> . INUM
+    (34) expression -> . FNUM
+    (35) expression -> . BOOLVAL
+    (36) expression -> . NAME
+    (37) BOOLVAL -> . TRUE
+    (38) BOOLVAL -> . FALSE
 
     -               shift and go to state 21
     (               shift and go to state 22
@@ -1027,7 +1077,7 @@ state 43
     TRUE            shift and go to state 27
     FALSE           shift and go to state 28
 
-    expression                     shift and go to state 59
+    expression                     shift and go to state 61
     BOOLVAL                        shift and go to state 25
 
 state 44
@@ -1044,14 +1094,16 @@ state 44
     (26) expression -> . expression LEQUAL expression
     (27) expression -> . expression GREATER expression
     (28) expression -> . expression LESS expression
-    (29) expression -> . - expression
-    (30) expression -> . ( expression )
-    (31) expression -> . INUM
-    (32) expression -> . FNUM
-    (33) expression -> . BOOLVAL
-    (34) expression -> . NAME
-    (35) BOOLVAL -> . TRUE
-    (36) BOOLVAL -> . FALSE
+    (29) expression -> . expression OR expression
+    (30) expression -> . expression AND expression
+    (31) expression -> . - expression
+    (32) expression -> . ( expression )
+    (33) expression -> . INUM
+    (34) expression -> . FNUM
+    (35) expression -> . BOOLVAL
+    (36) expression -> . NAME
+    (37) BOOLVAL -> . TRUE
+    (38) BOOLVAL -> . FALSE
 
     -               shift and go to state 21
     (               shift and go to state 22
@@ -1061,12 +1113,84 @@ state 44
     TRUE            shift and go to state 27
     FALSE           shift and go to state 28
 
-    expression                     shift and go to state 60
+    expression                     shift and go to state 62
     BOOLVAL                        shift and go to state 25
 
 state 45
 
-    (29) expression -> - expression .
+    (29) expression -> expression OR . expression
+    (18) expression -> . expression + expression
+    (19) expression -> . expression - expression
+    (20) expression -> . expression * expression
+    (21) expression -> . expression / expression
+    (22) expression -> . expression ^ expression
+    (23) expression -> . expression EQUAL expression
+    (24) expression -> . expression NEQUAL expression
+    (25) expression -> . expression GEQUAL expression
+    (26) expression -> . expression LEQUAL expression
+    (27) expression -> . expression GREATER expression
+    (28) expression -> . expression LESS expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . expression AND expression
+    (31) expression -> . - expression
+    (32) expression -> . ( expression )
+    (33) expression -> . INUM
+    (34) expression -> . FNUM
+    (35) expression -> . BOOLVAL
+    (36) expression -> . NAME
+    (37) BOOLVAL -> . TRUE
+    (38) BOOLVAL -> . FALSE
+
+    -               shift and go to state 21
+    (               shift and go to state 22
+    INUM            shift and go to state 23
+    FNUM            shift and go to state 24
+    NAME            shift and go to state 26
+    TRUE            shift and go to state 27
+    FALSE           shift and go to state 28
+
+    expression                     shift and go to state 63
+    BOOLVAL                        shift and go to state 25
+
+state 46
+
+    (30) expression -> expression AND . expression
+    (18) expression -> . expression + expression
+    (19) expression -> . expression - expression
+    (20) expression -> . expression * expression
+    (21) expression -> . expression / expression
+    (22) expression -> . expression ^ expression
+    (23) expression -> . expression EQUAL expression
+    (24) expression -> . expression NEQUAL expression
+    (25) expression -> . expression GEQUAL expression
+    (26) expression -> . expression LEQUAL expression
+    (27) expression -> . expression GREATER expression
+    (28) expression -> . expression LESS expression
+    (29) expression -> . expression OR expression
+    (30) expression -> . expression AND expression
+    (31) expression -> . - expression
+    (32) expression -> . ( expression )
+    (33) expression -> . INUM
+    (34) expression -> . FNUM
+    (35) expression -> . BOOLVAL
+    (36) expression -> . NAME
+    (37) BOOLVAL -> . TRUE
+    (38) BOOLVAL -> . FALSE
+
+    -               shift and go to state 21
+    (               shift and go to state 22
+    INUM            shift and go to state 23
+    FNUM            shift and go to state 24
+    NAME            shift and go to state 26
+    TRUE            shift and go to state 27
+    FALSE           shift and go to state 28
+
+    expression                     shift and go to state 64
+    BOOLVAL                        shift and go to state 25
+
+state 47
+
+    (31) expression -> - expression .
     (18) expression -> expression . + expression
     (19) expression -> expression . - expression
     (20) expression -> expression . * expression
@@ -1078,20 +1202,24 @@ state 45
     (26) expression -> expression . LEQUAL expression
     (27) expression -> expression . GREATER expression
     (28) expression -> expression . LESS expression
+    (29) expression -> expression . OR expression
+    (30) expression -> expression . AND expression
 
-    +               reduce using rule 29 (expression -> - expression .)
-    -               reduce using rule 29 (expression -> - expression .)
-    *               reduce using rule 29 (expression -> - expression .)
-    /               reduce using rule 29 (expression -> - expression .)
-    ^               reduce using rule 29 (expression -> - expression .)
-    EQUAL           reduce using rule 29 (expression -> - expression .)
-    NEQUAL          reduce using rule 29 (expression -> - expression .)
-    GEQUAL          reduce using rule 29 (expression -> - expression .)
-    LEQUAL          reduce using rule 29 (expression -> - expression .)
-    GREATER         reduce using rule 29 (expression -> - expression .)
-    LESS            reduce using rule 29 (expression -> - expression .)
-    ;               reduce using rule 29 (expression -> - expression .)
-    )               reduce using rule 29 (expression -> - expression .)
+    +               reduce using rule 31 (expression -> - expression .)
+    -               reduce using rule 31 (expression -> - expression .)
+    *               reduce using rule 31 (expression -> - expression .)
+    /               reduce using rule 31 (expression -> - expression .)
+    ^               reduce using rule 31 (expression -> - expression .)
+    EQUAL           reduce using rule 31 (expression -> - expression .)
+    NEQUAL          reduce using rule 31 (expression -> - expression .)
+    GEQUAL          reduce using rule 31 (expression -> - expression .)
+    LEQUAL          reduce using rule 31 (expression -> - expression .)
+    GREATER         reduce using rule 31 (expression -> - expression .)
+    LESS            reduce using rule 31 (expression -> - expression .)
+    OR              reduce using rule 31 (expression -> - expression .)
+    AND             reduce using rule 31 (expression -> - expression .)
+    ;               reduce using rule 31 (expression -> - expression .)
+    )               reduce using rule 31 (expression -> - expression .)
 
   ! +               [ shift and go to state 34 ]
   ! -               [ shift and go to state 35 ]
@@ -1104,11 +1232,13 @@ state 45
   ! LEQUAL          [ shift and go to state 42 ]
   ! GREATER         [ shift and go to state 43 ]
   ! LESS            [ shift and go to state 44 ]
+  ! OR              [ shift and go to state 45 ]
+  ! AND             [ shift and go to state 46 ]
 
 
-state 46
+state 48
 
-    (30) expression -> ( expression . )
+    (32) expression -> ( expression . )
     (18) expression -> expression . + expression
     (19) expression -> expression . - expression
     (20) expression -> expression . * expression
@@ -1120,8 +1250,10 @@ state 46
     (26) expression -> expression . LEQUAL expression
     (27) expression -> expression . GREATER expression
     (28) expression -> expression . LESS expression
+    (29) expression -> expression . OR expression
+    (30) expression -> expression . AND expression
 
-    )               shift and go to state 61
+    )               shift and go to state 65
     +               shift and go to state 34
     -               shift and go to state 35
     *               shift and go to state 36
@@ -1133,9 +1265,11 @@ state 46
     LEQUAL          shift and go to state 42
     GREATER         shift and go to state 43
     LESS            shift and go to state 44
+    OR              shift and go to state 45
+    AND             shift and go to state 46
 
 
-state 47
+state 49
 
     (7) if_statement -> IF ( expression . ) { statement }
     (18) expression -> expression . + expression
@@ -1149,8 +1283,10 @@ state 47
     (26) expression -> expression . LEQUAL expression
     (27) expression -> expression . GREATER expression
     (28) expression -> expression . LESS expression
+    (29) expression -> expression . OR expression
+    (30) expression -> expression . AND expression
 
-    )               shift and go to state 62
+    )               shift and go to state 66
     +               shift and go to state 34
     -               shift and go to state 35
     *               shift and go to state 36
@@ -1162,9 +1298,11 @@ state 47
     LEQUAL          shift and go to state 42
     GREATER         shift and go to state 43
     LESS            shift and go to state 44
+    OR              shift and go to state 45
+    AND             shift and go to state 46
 
 
-state 48
+state 50
 
     (16) declaration_full -> type NAME = . expression
     (18) expression -> . expression + expression
@@ -1178,14 +1316,16 @@ state 48
     (26) expression -> . expression LEQUAL expression
     (27) expression -> . expression GREATER expression
     (28) expression -> . expression LESS expression
-    (29) expression -> . - expression
-    (30) expression -> . ( expression )
-    (31) expression -> . INUM
-    (32) expression -> . FNUM
-    (33) expression -> . BOOLVAL
-    (34) expression -> . NAME
-    (35) BOOLVAL -> . TRUE
-    (36) BOOLVAL -> . FALSE
+    (29) expression -> . expression OR expression
+    (30) expression -> . expression AND expression
+    (31) expression -> . - expression
+    (32) expression -> . ( expression )
+    (33) expression -> . INUM
+    (34) expression -> . FNUM
+    (35) expression -> . BOOLVAL
+    (36) expression -> . NAME
+    (37) BOOLVAL -> . TRUE
+    (38) BOOLVAL -> . FALSE
 
     -               shift and go to state 21
     (               shift and go to state 22
@@ -1195,10 +1335,10 @@ state 48
     TRUE            shift and go to state 27
     FALSE           shift and go to state 28
 
-    expression                     shift and go to state 63
+    expression                     shift and go to state 67
     BOOLVAL                        shift and go to state 25
 
-state 49
+state 51
 
     (15) declaration_assign_expression -> NAME = expression .
     (18) expression -> expression . + expression
@@ -1212,6 +1352,8 @@ state 49
     (26) expression -> expression . LEQUAL expression
     (27) expression -> expression . GREATER expression
     (28) expression -> expression . LESS expression
+    (29) expression -> expression . OR expression
+    (30) expression -> expression . AND expression
 
     ;               reduce using rule 15 (declaration_assign_expression -> NAME = expression .)
     +               shift and go to state 34
@@ -1225,9 +1367,11 @@ state 49
     LEQUAL          shift and go to state 42
     GREATER         shift and go to state 43
     LESS            shift and go to state 44
+    OR              shift and go to state 45
+    AND             shift and go to state 46
 
 
-state 50
+state 52
 
     (18) expression -> expression + expression .
     (18) expression -> expression . + expression
@@ -1241,6 +1385,8 @@ state 50
     (26) expression -> expression . LEQUAL expression
     (27) expression -> expression . GREATER expression
     (28) expression -> expression . LESS expression
+    (29) expression -> expression . OR expression
+    (30) expression -> expression . AND expression
 
     +               reduce using rule 18 (expression -> expression + expression .)
     -               reduce using rule 18 (expression -> expression + expression .)
@@ -1250,6 +1396,8 @@ state 50
     LEQUAL          reduce using rule 18 (expression -> expression + expression .)
     GREATER         reduce using rule 18 (expression -> expression + expression .)
     LESS            reduce using rule 18 (expression -> expression + expression .)
+    OR              reduce using rule 18 (expression -> expression + expression .)
+    AND             reduce using rule 18 (expression -> expression + expression .)
     ;               reduce using rule 18 (expression -> expression + expression .)
     )               reduce using rule 18 (expression -> expression + expression .)
     *               shift and go to state 36
@@ -1267,9 +1415,11 @@ state 50
   ! LEQUAL          [ shift and go to state 42 ]
   ! GREATER         [ shift and go to state 43 ]
   ! LESS            [ shift and go to state 44 ]
+  ! OR              [ shift and go to state 45 ]
+  ! AND             [ shift and go to state 46 ]
 
 
-state 51
+state 53
 
     (19) expression -> expression - expression .
     (18) expression -> expression . + expression
@@ -1283,6 +1433,8 @@ state 51
     (26) expression -> expression . LEQUAL expression
     (27) expression -> expression . GREATER expression
     (28) expression -> expression . LESS expression
+    (29) expression -> expression . OR expression
+    (30) expression -> expression . AND expression
 
     +               reduce using rule 19 (expression -> expression - expression .)
     -               reduce using rule 19 (expression -> expression - expression .)
@@ -1292,6 +1444,8 @@ state 51
     LEQUAL          reduce using rule 19 (expression -> expression - expression .)
     GREATER         reduce using rule 19 (expression -> expression - expression .)
     LESS            reduce using rule 19 (expression -> expression - expression .)
+    OR              reduce using rule 19 (expression -> expression - expression .)
+    AND             reduce using rule 19 (expression -> expression - expression .)
     ;               reduce using rule 19 (expression -> expression - expression .)
     )               reduce using rule 19 (expression -> expression - expression .)
     *               shift and go to state 36
@@ -1309,9 +1463,11 @@ state 51
   ! LEQUAL          [ shift and go to state 42 ]
   ! GREATER         [ shift and go to state 43 ]
   ! LESS            [ shift and go to state 44 ]
+  ! OR              [ shift and go to state 45 ]
+  ! AND             [ shift and go to state 46 ]
 
 
-state 52
+state 54
 
     (20) expression -> expression * expression .
     (18) expression -> expression . + expression
@@ -1325,6 +1481,8 @@ state 52
     (26) expression -> expression . LEQUAL expression
     (27) expression -> expression . GREATER expression
     (28) expression -> expression . LESS expression
+    (29) expression -> expression . OR expression
+    (30) expression -> expression . AND expression
 
     +               reduce using rule 20 (expression -> expression * expression .)
     -               reduce using rule 20 (expression -> expression * expression .)
@@ -1336,6 +1494,8 @@ state 52
     LEQUAL          reduce using rule 20 (expression -> expression * expression .)
     GREATER         reduce using rule 20 (expression -> expression * expression .)
     LESS            reduce using rule 20 (expression -> expression * expression .)
+    OR              reduce using rule 20 (expression -> expression * expression .)
+    AND             reduce using rule 20 (expression -> expression * expression .)
     ;               reduce using rule 20 (expression -> expression * expression .)
     )               reduce using rule 20 (expression -> expression * expression .)
     ^               shift and go to state 38
@@ -1351,9 +1511,11 @@ state 52
   ! LEQUAL          [ shift and go to state 42 ]
   ! GREATER         [ shift and go to state 43 ]
   ! LESS            [ shift and go to state 44 ]
+  ! OR              [ shift and go to state 45 ]
+  ! AND             [ shift and go to state 46 ]
 
 
-state 53
+state 55
 
     (21) expression -> expression / expression .
     (18) expression -> expression . + expression
@@ -1367,6 +1529,8 @@ state 53
     (26) expression -> expression . LEQUAL expression
     (27) expression -> expression . GREATER expression
     (28) expression -> expression . LESS expression
+    (29) expression -> expression . OR expression
+    (30) expression -> expression . AND expression
 
     +               reduce using rule 21 (expression -> expression / expression .)
     -               reduce using rule 21 (expression -> expression / expression .)
@@ -1378,6 +1542,8 @@ state 53
     LEQUAL          reduce using rule 21 (expression -> expression / expression .)
     GREATER         reduce using rule 21 (expression -> expression / expression .)
     LESS            reduce using rule 21 (expression -> expression / expression .)
+    OR              reduce using rule 21 (expression -> expression / expression .)
+    AND             reduce using rule 21 (expression -> expression / expression .)
     ;               reduce using rule 21 (expression -> expression / expression .)
     )               reduce using rule 21 (expression -> expression / expression .)
     ^               shift and go to state 38
@@ -1393,9 +1559,11 @@ state 53
   ! LEQUAL          [ shift and go to state 42 ]
   ! GREATER         [ shift and go to state 43 ]
   ! LESS            [ shift and go to state 44 ]
+  ! OR              [ shift and go to state 45 ]
+  ! AND             [ shift and go to state 46 ]
 
 
-state 54
+state 56
 
     (22) expression -> expression ^ expression .
     (18) expression -> expression . + expression
@@ -1409,6 +1577,8 @@ state 54
     (26) expression -> expression . LEQUAL expression
     (27) expression -> expression . GREATER expression
     (28) expression -> expression . LESS expression
+    (29) expression -> expression . OR expression
+    (30) expression -> expression . AND expression
 
     +               reduce using rule 22 (expression -> expression ^ expression .)
     -               reduce using rule 22 (expression -> expression ^ expression .)
@@ -1421,6 +1591,8 @@ state 54
     LEQUAL          reduce using rule 22 (expression -> expression ^ expression .)
     GREATER         reduce using rule 22 (expression -> expression ^ expression .)
     LESS            reduce using rule 22 (expression -> expression ^ expression .)
+    OR              reduce using rule 22 (expression -> expression ^ expression .)
+    AND             reduce using rule 22 (expression -> expression ^ expression .)
     ;               reduce using rule 22 (expression -> expression ^ expression .)
     )               reduce using rule 22 (expression -> expression ^ expression .)
 
@@ -1435,9 +1607,11 @@ state 54
   ! LEQUAL          [ shift and go to state 42 ]
   ! GREATER         [ shift and go to state 43 ]
   ! LESS            [ shift and go to state 44 ]
+  ! OR              [ shift and go to state 45 ]
+  ! AND             [ shift and go to state 46 ]
 
 
-state 55
+state 57
 
     (23) expression -> expression EQUAL expression .
     (18) expression -> expression . + expression
@@ -1451,6 +1625,8 @@ state 55
     (26) expression -> expression . LEQUAL expression
     (27) expression -> expression . GREATER expression
     (28) expression -> expression . LESS expression
+    (29) expression -> expression . OR expression
+    (30) expression -> expression . AND expression
 
     EQUAL           reduce using rule 23 (expression -> expression EQUAL expression .)
     NEQUAL          reduce using rule 23 (expression -> expression EQUAL expression .)
@@ -1458,6 +1634,8 @@ state 55
     LEQUAL          reduce using rule 23 (expression -> expression EQUAL expression .)
     GREATER         reduce using rule 23 (expression -> expression EQUAL expression .)
     LESS            reduce using rule 23 (expression -> expression EQUAL expression .)
+    OR              reduce using rule 23 (expression -> expression EQUAL expression .)
+    AND             reduce using rule 23 (expression -> expression EQUAL expression .)
     ;               reduce using rule 23 (expression -> expression EQUAL expression .)
     )               reduce using rule 23 (expression -> expression EQUAL expression .)
     +               shift and go to state 34
@@ -1477,9 +1655,11 @@ state 55
   ! LEQUAL          [ shift and go to state 42 ]
   ! GREATER         [ shift and go to state 43 ]
   ! LESS            [ shift and go to state 44 ]
+  ! OR              [ shift and go to state 45 ]
+  ! AND             [ shift and go to state 46 ]
 
 
-state 56
+state 58
 
     (24) expression -> expression NEQUAL expression .
     (18) expression -> expression . + expression
@@ -1493,6 +1673,8 @@ state 56
     (26) expression -> expression . LEQUAL expression
     (27) expression -> expression . GREATER expression
     (28) expression -> expression . LESS expression
+    (29) expression -> expression . OR expression
+    (30) expression -> expression . AND expression
 
     EQUAL           reduce using rule 24 (expression -> expression NEQUAL expression .)
     NEQUAL          reduce using rule 24 (expression -> expression NEQUAL expression .)
@@ -1500,6 +1682,8 @@ state 56
     LEQUAL          reduce using rule 24 (expression -> expression NEQUAL expression .)
     GREATER         reduce using rule 24 (expression -> expression NEQUAL expression .)
     LESS            reduce using rule 24 (expression -> expression NEQUAL expression .)
+    OR              reduce using rule 24 (expression -> expression NEQUAL expression .)
+    AND             reduce using rule 24 (expression -> expression NEQUAL expression .)
     ;               reduce using rule 24 (expression -> expression NEQUAL expression .)
     )               reduce using rule 24 (expression -> expression NEQUAL expression .)
     +               shift and go to state 34
@@ -1519,9 +1703,11 @@ state 56
   ! LEQUAL          [ shift and go to state 42 ]
   ! GREATER         [ shift and go to state 43 ]
   ! LESS            [ shift and go to state 44 ]
+  ! OR              [ shift and go to state 45 ]
+  ! AND             [ shift and go to state 46 ]
 
 
-state 57
+state 59
 
     (25) expression -> expression GEQUAL expression .
     (18) expression -> expression . + expression
@@ -1535,6 +1721,8 @@ state 57
     (26) expression -> expression . LEQUAL expression
     (27) expression -> expression . GREATER expression
     (28) expression -> expression . LESS expression
+    (29) expression -> expression . OR expression
+    (30) expression -> expression . AND expression
 
     EQUAL           reduce using rule 25 (expression -> expression GEQUAL expression .)
     NEQUAL          reduce using rule 25 (expression -> expression GEQUAL expression .)
@@ -1542,6 +1730,8 @@ state 57
     LEQUAL          reduce using rule 25 (expression -> expression GEQUAL expression .)
     GREATER         reduce using rule 25 (expression -> expression GEQUAL expression .)
     LESS            reduce using rule 25 (expression -> expression GEQUAL expression .)
+    OR              reduce using rule 25 (expression -> expression GEQUAL expression .)
+    AND             reduce using rule 25 (expression -> expression GEQUAL expression .)
     ;               reduce using rule 25 (expression -> expression GEQUAL expression .)
     )               reduce using rule 25 (expression -> expression GEQUAL expression .)
     +               shift and go to state 34
@@ -1561,9 +1751,11 @@ state 57
   ! LEQUAL          [ shift and go to state 42 ]
   ! GREATER         [ shift and go to state 43 ]
   ! LESS            [ shift and go to state 44 ]
+  ! OR              [ shift and go to state 45 ]
+  ! AND             [ shift and go to state 46 ]
 
 
-state 58
+state 60
 
     (26) expression -> expression LEQUAL expression .
     (18) expression -> expression . + expression
@@ -1577,6 +1769,8 @@ state 58
     (26) expression -> expression . LEQUAL expression
     (27) expression -> expression . GREATER expression
     (28) expression -> expression . LESS expression
+    (29) expression -> expression . OR expression
+    (30) expression -> expression . AND expression
 
     EQUAL           reduce using rule 26 (expression -> expression LEQUAL expression .)
     NEQUAL          reduce using rule 26 (expression -> expression LEQUAL expression .)
@@ -1584,6 +1778,8 @@ state 58
     LEQUAL          reduce using rule 26 (expression -> expression LEQUAL expression .)
     GREATER         reduce using rule 26 (expression -> expression LEQUAL expression .)
     LESS            reduce using rule 26 (expression -> expression LEQUAL expression .)
+    OR              reduce using rule 26 (expression -> expression LEQUAL expression .)
+    AND             reduce using rule 26 (expression -> expression LEQUAL expression .)
     ;               reduce using rule 26 (expression -> expression LEQUAL expression .)
     )               reduce using rule 26 (expression -> expression LEQUAL expression .)
     +               shift and go to state 34
@@ -1603,9 +1799,11 @@ state 58
   ! LEQUAL          [ shift and go to state 42 ]
   ! GREATER         [ shift and go to state 43 ]
   ! LESS            [ shift and go to state 44 ]
+  ! OR              [ shift and go to state 45 ]
+  ! AND             [ shift and go to state 46 ]
 
 
-state 59
+state 61
 
     (27) expression -> expression GREATER expression .
     (18) expression -> expression . + expression
@@ -1619,6 +1817,8 @@ state 59
     (26) expression -> expression . LEQUAL expression
     (27) expression -> expression . GREATER expression
     (28) expression -> expression . LESS expression
+    (29) expression -> expression . OR expression
+    (30) expression -> expression . AND expression
 
     EQUAL           reduce using rule 27 (expression -> expression GREATER expression .)
     NEQUAL          reduce using rule 27 (expression -> expression GREATER expression .)
@@ -1626,6 +1826,8 @@ state 59
     LEQUAL          reduce using rule 27 (expression -> expression GREATER expression .)
     GREATER         reduce using rule 27 (expression -> expression GREATER expression .)
     LESS            reduce using rule 27 (expression -> expression GREATER expression .)
+    OR              reduce using rule 27 (expression -> expression GREATER expression .)
+    AND             reduce using rule 27 (expression -> expression GREATER expression .)
     ;               reduce using rule 27 (expression -> expression GREATER expression .)
     )               reduce using rule 27 (expression -> expression GREATER expression .)
     +               shift and go to state 34
@@ -1645,9 +1847,11 @@ state 59
   ! LEQUAL          [ shift and go to state 42 ]
   ! GREATER         [ shift and go to state 43 ]
   ! LESS            [ shift and go to state 44 ]
+  ! OR              [ shift and go to state 45 ]
+  ! AND             [ shift and go to state 46 ]
 
 
-state 60
+state 62
 
     (28) expression -> expression LESS expression .
     (18) expression -> expression . + expression
@@ -1661,6 +1865,8 @@ state 60
     (26) expression -> expression . LEQUAL expression
     (27) expression -> expression . GREATER expression
     (28) expression -> expression . LESS expression
+    (29) expression -> expression . OR expression
+    (30) expression -> expression . AND expression
 
     EQUAL           reduce using rule 28 (expression -> expression LESS expression .)
     NEQUAL          reduce using rule 28 (expression -> expression LESS expression .)
@@ -1668,6 +1874,8 @@ state 60
     LEQUAL          reduce using rule 28 (expression -> expression LESS expression .)
     GREATER         reduce using rule 28 (expression -> expression LESS expression .)
     LESS            reduce using rule 28 (expression -> expression LESS expression .)
+    OR              reduce using rule 28 (expression -> expression LESS expression .)
+    AND             reduce using rule 28 (expression -> expression LESS expression .)
     ;               reduce using rule 28 (expression -> expression LESS expression .)
     )               reduce using rule 28 (expression -> expression LESS expression .)
     +               shift and go to state 34
@@ -1687,35 +1895,135 @@ state 60
   ! LEQUAL          [ shift and go to state 42 ]
   ! GREATER         [ shift and go to state 43 ]
   ! LESS            [ shift and go to state 44 ]
-
-
-state 61
-
-    (30) expression -> ( expression ) .
-
-    +               reduce using rule 30 (expression -> ( expression ) .)
-    -               reduce using rule 30 (expression -> ( expression ) .)
-    *               reduce using rule 30 (expression -> ( expression ) .)
-    /               reduce using rule 30 (expression -> ( expression ) .)
-    ^               reduce using rule 30 (expression -> ( expression ) .)
-    EQUAL           reduce using rule 30 (expression -> ( expression ) .)
-    NEQUAL          reduce using rule 30 (expression -> ( expression ) .)
-    GEQUAL          reduce using rule 30 (expression -> ( expression ) .)
-    LEQUAL          reduce using rule 30 (expression -> ( expression ) .)
-    GREATER         reduce using rule 30 (expression -> ( expression ) .)
-    LESS            reduce using rule 30 (expression -> ( expression ) .)
-    ;               reduce using rule 30 (expression -> ( expression ) .)
-    )               reduce using rule 30 (expression -> ( expression ) .)
-
-
-state 62
-
-    (7) if_statement -> IF ( expression ) . { statement }
-
-    {               shift and go to state 64
+  ! OR              [ shift and go to state 45 ]
+  ! AND             [ shift and go to state 46 ]
 
 
 state 63
+
+    (29) expression -> expression OR expression .
+    (18) expression -> expression . + expression
+    (19) expression -> expression . - expression
+    (20) expression -> expression . * expression
+    (21) expression -> expression . / expression
+    (22) expression -> expression . ^ expression
+    (23) expression -> expression . EQUAL expression
+    (24) expression -> expression . NEQUAL expression
+    (25) expression -> expression . GEQUAL expression
+    (26) expression -> expression . LEQUAL expression
+    (27) expression -> expression . GREATER expression
+    (28) expression -> expression . LESS expression
+    (29) expression -> expression . OR expression
+    (30) expression -> expression . AND expression
+
+    OR              reduce using rule 29 (expression -> expression OR expression .)
+    AND             reduce using rule 29 (expression -> expression OR expression .)
+    ;               reduce using rule 29 (expression -> expression OR expression .)
+    )               reduce using rule 29 (expression -> expression OR expression .)
+    +               shift and go to state 34
+    -               shift and go to state 35
+    *               shift and go to state 36
+    /               shift and go to state 37
+    ^               shift and go to state 38
+    EQUAL           shift and go to state 39
+    NEQUAL          shift and go to state 40
+    GEQUAL          shift and go to state 41
+    LEQUAL          shift and go to state 42
+    GREATER         shift and go to state 43
+    LESS            shift and go to state 44
+
+  ! +               [ reduce using rule 29 (expression -> expression OR expression .) ]
+  ! -               [ reduce using rule 29 (expression -> expression OR expression .) ]
+  ! *               [ reduce using rule 29 (expression -> expression OR expression .) ]
+  ! /               [ reduce using rule 29 (expression -> expression OR expression .) ]
+  ! ^               [ reduce using rule 29 (expression -> expression OR expression .) ]
+  ! EQUAL           [ reduce using rule 29 (expression -> expression OR expression .) ]
+  ! NEQUAL          [ reduce using rule 29 (expression -> expression OR expression .) ]
+  ! GEQUAL          [ reduce using rule 29 (expression -> expression OR expression .) ]
+  ! LEQUAL          [ reduce using rule 29 (expression -> expression OR expression .) ]
+  ! GREATER         [ reduce using rule 29 (expression -> expression OR expression .) ]
+  ! LESS            [ reduce using rule 29 (expression -> expression OR expression .) ]
+  ! OR              [ shift and go to state 45 ]
+  ! AND             [ shift and go to state 46 ]
+
+
+state 64
+
+    (30) expression -> expression AND expression .
+    (18) expression -> expression . + expression
+    (19) expression -> expression . - expression
+    (20) expression -> expression . * expression
+    (21) expression -> expression . / expression
+    (22) expression -> expression . ^ expression
+    (23) expression -> expression . EQUAL expression
+    (24) expression -> expression . NEQUAL expression
+    (25) expression -> expression . GEQUAL expression
+    (26) expression -> expression . LEQUAL expression
+    (27) expression -> expression . GREATER expression
+    (28) expression -> expression . LESS expression
+    (29) expression -> expression . OR expression
+    (30) expression -> expression . AND expression
+
+    OR              reduce using rule 30 (expression -> expression AND expression .)
+    AND             reduce using rule 30 (expression -> expression AND expression .)
+    ;               reduce using rule 30 (expression -> expression AND expression .)
+    )               reduce using rule 30 (expression -> expression AND expression .)
+    +               shift and go to state 34
+    -               shift and go to state 35
+    *               shift and go to state 36
+    /               shift and go to state 37
+    ^               shift and go to state 38
+    EQUAL           shift and go to state 39
+    NEQUAL          shift and go to state 40
+    GEQUAL          shift and go to state 41
+    LEQUAL          shift and go to state 42
+    GREATER         shift and go to state 43
+    LESS            shift and go to state 44
+
+  ! +               [ reduce using rule 30 (expression -> expression AND expression .) ]
+  ! -               [ reduce using rule 30 (expression -> expression AND expression .) ]
+  ! *               [ reduce using rule 30 (expression -> expression AND expression .) ]
+  ! /               [ reduce using rule 30 (expression -> expression AND expression .) ]
+  ! ^               [ reduce using rule 30 (expression -> expression AND expression .) ]
+  ! EQUAL           [ reduce using rule 30 (expression -> expression AND expression .) ]
+  ! NEQUAL          [ reduce using rule 30 (expression -> expression AND expression .) ]
+  ! GEQUAL          [ reduce using rule 30 (expression -> expression AND expression .) ]
+  ! LEQUAL          [ reduce using rule 30 (expression -> expression AND expression .) ]
+  ! GREATER         [ reduce using rule 30 (expression -> expression AND expression .) ]
+  ! LESS            [ reduce using rule 30 (expression -> expression AND expression .) ]
+  ! OR              [ shift and go to state 45 ]
+  ! AND             [ shift and go to state 46 ]
+
+
+state 65
+
+    (32) expression -> ( expression ) .
+
+    +               reduce using rule 32 (expression -> ( expression ) .)
+    -               reduce using rule 32 (expression -> ( expression ) .)
+    *               reduce using rule 32 (expression -> ( expression ) .)
+    /               reduce using rule 32 (expression -> ( expression ) .)
+    ^               reduce using rule 32 (expression -> ( expression ) .)
+    EQUAL           reduce using rule 32 (expression -> ( expression ) .)
+    NEQUAL          reduce using rule 32 (expression -> ( expression ) .)
+    GEQUAL          reduce using rule 32 (expression -> ( expression ) .)
+    LEQUAL          reduce using rule 32 (expression -> ( expression ) .)
+    GREATER         reduce using rule 32 (expression -> ( expression ) .)
+    LESS            reduce using rule 32 (expression -> ( expression ) .)
+    OR              reduce using rule 32 (expression -> ( expression ) .)
+    AND             reduce using rule 32 (expression -> ( expression ) .)
+    ;               reduce using rule 32 (expression -> ( expression ) .)
+    )               reduce using rule 32 (expression -> ( expression ) .)
+
+
+state 66
+
+    (7) if_statement -> IF ( expression ) . { statement }
+
+    {               shift and go to state 68
+
+
+state 67
 
     (16) declaration_full -> type NAME = expression .
     (18) expression -> expression . + expression
@@ -1729,6 +2037,8 @@ state 63
     (26) expression -> expression . LEQUAL expression
     (27) expression -> expression . GREATER expression
     (28) expression -> expression . LESS expression
+    (29) expression -> expression . OR expression
+    (30) expression -> expression . AND expression
 
     ;               reduce using rule 16 (declaration_full -> type NAME = expression .)
     +               shift and go to state 34
@@ -1742,9 +2052,11 @@ state 63
     LEQUAL          shift and go to state 42
     GREATER         shift and go to state 43
     LESS            shift and go to state 44
+    OR              shift and go to state 45
+    AND             shift and go to state 46
 
 
-state 64
+state 68
 
     (7) if_statement -> IF ( expression ) { . statement }
     (2) statement -> . declarations ; statement
@@ -1772,7 +2084,7 @@ state 64
     FLOAT           shift and go to state 15
     BOOLEAN         shift and go to state 16
 
-    statement                      shift and go to state 65
+    statement                      shift and go to state 69
     declarations                   shift and go to state 3
     print                          shift and go to state 4
     if_statement                   shift and go to state 5
@@ -1782,14 +2094,14 @@ state 64
     declaration_full               shift and go to state 9
     type                           shift and go to state 12
 
-state 65
+state 69
 
     (7) if_statement -> IF ( expression ) { statement . }
 
-    }               shift and go to state 66
+    }               shift and go to state 70
 
 
-state 66
+state 70
 
     (7) if_statement -> IF ( expression ) { statement } .
 

@@ -13,7 +13,8 @@ reserved = {
 
 tokens = tuple(reserved.values()) + (
     'NAME', 'INUM', 'FNUM',
-    'EQUAL', 'NEQUAL', 'GREATER', 'LESS', 'GEQUAL', 'LEQUAL'
+    'EQUAL', 'NEQUAL', 'GREATER', 'LESS', 'GEQUAL', 'LEQUAL',
+    'AND', 'OR'
 )
 
 literals = ['=', '+', '-', '*', '/', '^', '(', ')', '{', '}', ';']
@@ -26,6 +27,8 @@ t_GREATER = r'>'
 t_LESS = r'<'
 t_GEQUAL = r'>='
 t_LEQUAL = r'<='
+t_AND = r'&&'
+t_OR = r'\|\|'
 
 def t_NAME(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
@@ -53,6 +56,7 @@ def t_error(t):
 lex.lex()
 
 precedence = (
+    ('left', 'AND', 'OR'),
     ('nonassoc', 'LEQUAL', 'GEQUAL', 'EQUAL', 'NEQUAL', 'GREATER', 'LESS'),
     ('left', '+', '-'),
     ('left', '*', '/'),
@@ -75,7 +79,7 @@ def p_statement(p):
                  | if_statement statement
                  | empty'''
     if len(p) > 2:  # not empty
-        if p[2] == ";":
+        if len(p) == 3:
             p[2] = p[3]
         p[0] = (p[1], ) + p[3]
     else:
@@ -131,7 +135,9 @@ def p_expression_binop(p):
                   | expression GEQUAL expression
                   | expression LEQUAL expression
                   | expression GREATER expression
-                  | expression LESS expression'''
+                  | expression LESS expression
+                  | expression OR expression
+                  | expression AND expression'''
     p[0] = ('operation', p[1], p[2], p[3])
 
 def p_expression_uminus(p):

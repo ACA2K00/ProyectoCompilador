@@ -7,4 +7,5 @@
 ('assign', 'b', ('operation', 54, '+', 'd'))
 ('assign', 'c', ('operation', 'a', '^', 'b'))
 ('assign', 'e', ('operation', 'a', '!=', 'b'))
+('assign', 'e', ('operation', 'a', '||', 'b'))
 ('print', 'c')
