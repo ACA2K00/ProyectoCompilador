@@ -3,6 +3,6 @@
 ('declare', 'float', 'c')
 ('declare_assign', 'int', 'd', 12)
 ('assign', 'a', 3.1415929)
-('assign', 'b', ('operation', 4, '+', 'd'))
-('assign', 'c', ('operation', 'a', '+', 'b'))
+('assign', 'b', ('operation', 54, '+', 'd'))
+('assign', 'c', ('operation', 'a', '^', 'b'))
 ('print', 'c')

@@ -14,7 +14,7 @@ tokens = tuple(reserved.values()) + (
     'NAME', 'INUM', 'FNUM', 
 )
 
-literals = ['=', '+', '-', '*', '/', '(', ')']
+literals = ['=', '+', '-', '*', '/', '^', '(', ')', ';']
 
 t_ignore = ' \t'
 
@@ -46,6 +46,7 @@ lex.lex()
 precedence = (
     ('left', '+', '-'),
     ('left', '*', '/'),
+    ('left', '^'),
     ('right', 'UMINUS'),
 )
 
@@ -59,11 +60,11 @@ def p_init(p):
 
 
 def p_statement(p):
-    '''statement : declarations statement
-                 | print statement
+    '''statement : declarations ";" statement
+                 | print ";" statement
                  | empty'''
     if len(p) > 2:  # not empty
-        p[0] = (p[1], ) + p[2]
+        p[0] = (p[1], ) + p[3]
     else:
         p[0] = ()
 
@@ -102,11 +103,12 @@ def p_print(p):
     p[0] = ('print', p[2])
     print
 
-def p_unary_operator(p):
+def p_expression_binop(p):
     '''expression : expression "+" expression
                   | expression "-" expression
                   | expression "*" expression
-                  | expression "/" expression'''
+                  | expression "/" expression
+                  | expression "^" expression'''
     p[0] = ('operation', p[1], p[2], p[3])
 
 def p_expression_uminus(p):
